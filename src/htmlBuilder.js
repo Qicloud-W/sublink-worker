@@ -69,20 +69,20 @@ const generateGithubLink = () => `
 
 const generateCardHeader = () => `
   <div class="card-header text-center">
-    <h1 class="display-4 mb-0">Sublink Worker</h1>
+    <h1 class="display-4 mb-0">订阅转换</h1>
   </div>
 `;
 
 const generateForm = () => `
   <form method="POST" id="encodeForm">
     <div class="form-section">
-      <div class="form-section-title">Share URLs</div>
-      <textarea class="form-control" id="inputTextarea" name="input" required placeholder="vmess://abcd..." rows="3"></textarea>
+      <div class="form-section-title">订阅 URLs</div>
+      <textarea class="form-control" id="inputTextarea" name="input" required placeholder="支持导入 Base64 的 http/https 订阅链接以及多种协议的分享URL,多个订阅链接注意需要换行。支持SS，vless，vmess，Trojan，Tuic,HY2协议的节点..." rows="3"></textarea>
     </div>
 
     <div class="form-check form-switch mb-3">
       <input class="form-check-input" type="checkbox" id="advancedToggle">
-      <label class="form-check-label" for="advancedToggle">Advanced Options</label>
+      <label class="form-check-label" for="advancedToggle">高级设置（建议打开）</label>
     </div>
 
     <div id="advancedOptions">
@@ -92,11 +92,11 @@ const generateForm = () => `
 
       <div class="form-section">
         <div class="form-section-title d-flex align-items-center">
-          Base Config Settings(Optional)
+          基本配置设置（可选）
           <span class="tooltip-icon ms-2">
             <i class="fas fa-question-circle"></i>
             <span class="tooltip-content">
-              This feature is experimental and may not work as expected. You can paste your own base config here. Go to <a href="https://github.com/7Sageer/sublink-worker/blob/main/docs/base-config.md" target="_blank">docs</a> for more information.
+              此功能为实验性，可能无法按预期工作。您可以在此粘贴自己的基础配置。请查看文档以获取更多信息。
             </span>
           </span>
         </div>
@@ -107,12 +107,12 @@ const generateForm = () => `
           </select>
         </div>
         <div class="mb-3">
-          <textarea class="form-control" id="configEditor" rows="3" placeholder="Paste your custom config here..."></textarea>
+          <textarea class="form-control" id="configEditor" rows="3" placeholder="请把你的自定义规则粘贴到这里...."></textarea>
         </div>
         <div class="d-flex gap-2">
-          <button type="button" class="btn btn-secondary" onclick="saveConfig()">Save Config</button>
+          <button type="button" class="btn btn-secondary" onclick="saveConfig()">保存配置</button>
           <button type="button" class="btn btn-outline-danger" onclick="clearConfig()">
-            <i class="fas fa-trash-alt me-2"></i>Clear Config
+            <i class="fas fa-trash-alt me-2"></i>清空配置
           </button>
         </div>
       </div>
@@ -120,10 +120,10 @@ const generateForm = () => `
 
     <div class="d-flex gap-2 mt-4">
       <button type="submit" class="btn btn-primary flex-grow-1">
-        <i class="fas fa-sync-alt me-2"></i>Convert
+        <i class="fas fa-sync-alt me-2"></i>转换
       </button>
       <button type="button" class="btn btn-outline-secondary" id="clearFormBtn">
-        <i class="fas fa-trash-alt me-2"></i>Clear
+        <i class="fas fa-trash-alt me-2"></i>清空
       </button>
     </div>
   </form>
@@ -362,21 +362,21 @@ const darkModeToggleFunction = () => `
 const generateRuleSetSelection = () => `
   <div class="container">
     <div class="header-container">
-      <h4 class="header-title">Rule Selection</h4>
+      <h4 class="header-title">自定义规则</h4>
       <span class="tooltip-icon">
         <i class="fas fa-question-circle"></i>
         <span class="tooltip-content">
-          These rules determine how traffic is directed through different proxies or directly. If you're unsure, you can use a predefined rule set.
+          请根据自己的需要点击下方的规则选项，或者通过打开模板选择其中的一项，例如基础配置等！选择好之后点击最下方的转换按钮即可完成转换！
         </span>
       </span>
     </div>
 
     <div class="content-container mb-3">
       <select class="form-select" id="predefinedRules" onchange="applyPredefinedRules()">
-        <option value="custom">Custom</option>
-        <option value="minimal">Minimal</option>
-        <option value="balanced">Balanced</option>
-        <option value="comprehensive">Comprehensive</option>
+        <option value="custom">自定义</option>
+        <option value="minimal">最小配置</option>
+        <option value="balanced">标准配置</option>
+        <option value="comprehensive">全量配置</option>
       </select>
     </div>
     <div class="row" id="ruleCheckboxes">
@@ -390,15 +390,15 @@ const generateRuleSetSelection = () => `
       `).join('')}
     </div>
     <div class="mt-4">
-      <h5>Custom Rules</h5>
+      <h5>自定义规则</h5>
       <div class="form-check form-switch mb-3">
         <input class="form-check-input" type="checkbox" id="crpinToggle">
-        <label class="form-check-label" for="crpinToggle">Pin Custom Rules</label>
+        <label class="form-check-label" for="crpinToggle">自定义规则开关</label>
       </div>
       <div id="customRules">
       <!-- Custom rules will be dynamically added here -->
     </div>
-    <button type="button" class="btn btn-secondary mt-2" onclick="addCustomRule()">Add Custom Rule</button>
+    <button type="button" class="btn btn-secondary mt-2" onclick="addCustomRule()">添加自定义规则</button>
   </div>
   </div>
 `;
@@ -670,7 +670,7 @@ const customRuleFunctions = `
         </span>
         <input type="text" class="form-control mb-2" name="customRuleProtocol[]" placeholder="Protocol (comma separated, e.g, http,ssh,dns)">
       </div>
-      <button type="button" class="btn btn-danger btn-sm" onclick="removeCustomRule(this)">Remove</button>
+      <button type="button" class="btn btn-danger btn-sm" onclick="removeCustomRule(this)">删除</button>
     \`;
     customRulesDiv.appendChild(newRuleDiv);
   }
